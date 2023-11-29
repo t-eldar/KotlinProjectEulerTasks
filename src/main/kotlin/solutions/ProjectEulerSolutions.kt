@@ -8,7 +8,7 @@ import kotlin.math.sqrt
 // #1, problem 1
 fun solveMultiplesOfThreeOrFive(): Int {
     var sum = 0
-    for (num in 1..1000) {
+    for (num in 1..999) {
         if (num % 3 == 0 || num % 5 == 0) {
             sum += num
         }
@@ -20,8 +20,8 @@ fun solveMultiplesOfThreeOrFive(): Int {
 // #2, problem 80
 fun solveSquareRootDigitalExpansion(): Int {
     var sum = 0
-    for (num in 2..100) {
-        val mathContext = MathContext(100)
+    for (num in 2..99) {
+        val mathContext = MathContext(102)
         val squareRoot = num.toBigDecimal().sqrt(mathContext)
 
         if (squareRoot - squareRoot.toInt().toBigDecimal() == BigDecimal.ZERO) {
@@ -29,8 +29,10 @@ fun solveSquareRootDigitalExpansion(): Int {
         }
         val rootString = squareRoot.toString()
         val delimiterIndex = rootString.indexOf('.')
-        val decimalPart = rootString.substring(delimiterIndex + 1)
-
+        val decimalPart = rootString.substring(delimiterIndex + 1).take(99)
+        for (i in rootString.takeWhile { it != '.' }) {
+            sum += i.digitToInt()
+        }
         for (i in decimalPart) {
             sum += i.digitToInt()
         }
